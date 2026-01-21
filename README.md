@@ -63,7 +63,7 @@ OPENAI_API_KEY=sk-your-key-here
 python app.py
 ```
 
-7. Open http://localhost:5000 in your browser.
+7. Open http://localhost:8000 in your browser.
 
 ## Configuration
 
