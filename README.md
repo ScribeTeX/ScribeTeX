@@ -17,7 +17,7 @@ ScribeTeX uses AI vision models to read your content and produce clean, compilab
 | Provider | Non-Reasoning | Reasoning |
 |----------|---------------|-----------|
 | OpenAI | gpt-4.1, gpt-4.1-mini | gpt-5, gpt-5.1, gpt-5.2 |
-| Google | gemini-2.5-flash, gemini-2.5-pro | gemini-3-flash-preview |
+| Google | gemini-2.5-flash | gemini-2.5-pro, gemini-3-flash-preview |
 | Anthropic | claude-sonnet-4-5, claude-haiku-4-5 | claude-opus-4-5 (extended thinking) |
 
 The application automatically handles the different API parameters required for reasoning vs non-reasoning models.
