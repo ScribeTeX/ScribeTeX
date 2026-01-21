@@ -32,8 +32,8 @@ The application automatically handles the different API parameters required for 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/scribetex.git
-cd scribetex
+git clone https://github.com/ScribeTeX/ScribeTeX.git
+cd ScribeTeX
 ```
 
 2. Create and activate a virtual environment:
