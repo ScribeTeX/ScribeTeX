@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Confirm - ScribeTeX{% endblock %}
+
+{% block content %}
+    <div class="confirm-container">
+        <h2 class="title">Confirm Conversion</h2>
+        <p class="subtitle">Review the details below and start the conversion.</p>
+        
+        <div class="details-box">
+            <div class="detail-row">
+                <span class="detail-label">File:</span>
+                <span class="detail-value">{{ original_filename }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Type:</span>
+                <span class="detail-value">{{ file_type | capitalize }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Pages/Items:</span>
+                <span class="detail-value">{{ page_count }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Provider:</span>
+                <span class="detail-value">{{ provider | capitalize }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Model:</span>
+                <span class="detail-value">{{ model }}</span>
+            </div>
+        </div>
+        
+        <form method="post" action="{{ url_for('main.process_conversion') }}">
+            <button type="submit" class="convert-button">Start Conversion</button>
+        </form>
+        
+        <a href="{{ url_for('main.upload_file') }}" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Upload a different file
+        </a>
+    </div>
+{% endblock %}

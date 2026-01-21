@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Converting - ScribeTeX{% endblock %}
+
+{% block content %}
+    <div class="processing-container">
+        <div id="progress-section">
+            <div class="spinner"></div>
+            <h2 class="title">Converting...</h2>
+            <p class="subtitle">Processing <strong>{{ filename }}</strong></p>
+            <p id="status-message" class="status-text">Sending to AI model...</p>
+        </div>
+        
+        <div id="error-section" style="display: none;">
+            <div class="error-icon">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <h2 class="title error-title">Conversion Failed</h2>
+            <p id="error-message" class="subtitle"></p>
+            <a href="{{ url_for('main.upload_file') }}" class="convert-button secondary">Try Again</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const progressSection = document.getElementById('progress-section');
+        const errorSection = document.getElementById('error-section');
+        const statusMessage = document.getElementById('status-message');
+        const errorMessage = document.getElementById('error-message');
+        
+        function showError(message) {
+            progressSection.style.display = 'none';
+            errorSection.style.display = 'block';
+            errorMessage.textContent = message;
+        }
+        
+        // Start conversion
+        fetch('{{ url_for("main.api_convert") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                statusMessage.textContent = 'Conversion complete! Redirecting...';
+                window.location.href = data.redirect_url;
+            } else {
+                showError(data.error || 'An unknown error occurred.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('Network error. Please check your connection and try again.');
+        });
+    });
+</script>
+{% endblock %}

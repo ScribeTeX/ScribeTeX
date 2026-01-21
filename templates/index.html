@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Upload - ScribeTeX{% endblock %}
+
+{% block content %}
+    <h2 class="title">Convert to LaTeX</h2>
+    <p class="subtitle">Upload your handwritten notes, PDFs, images, or text documents and convert them to clean LaTeX code.</p>
+    
+    <form id="upload-form" action="{{ url_for('main.upload_file') }}" method="post" enctype="multipart/form-data">
+        <div id="drop-area">
+            <input id="file-upload" type="file" name="file" accept="{{ allowed_extensions | join(',') }}" onchange="handleFileSelect()" required>
+            
+            <div id="upload-prompt">
+                <div class="drop-icon">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <p class="drag-drop-text">Drag &amp; drop your file here</p>
+                <p>or</p>
+                <label for="file-upload" class="custom-file-upload">
+                    Browse Files
+                </label>
+                <p class="supported-formats">
+                    Supported: PDF, Images (PNG, JPG, GIF, WebP), Text (TXT, MD), Documents (DOCX)
+                </p>
+            </div>
+
+            <div class="file-display" id="file-display-area">
+                <span id="file-name" class="file-name"></span>
+                <span id="clear-file" class="clear-file" onclick="clearFile(event)">&times;</span>
+            </div>
+        </div>
+        <button type="submit" class="convert-button" id="submit-button" style="display: none;">Continue</button>
+    </form>
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+    const dropArea = document.getElementById('drop-area');
+    const fileInput = document.getElementById('file-upload');
+    const uploadPrompt = document.getElementById('upload-prompt');
+    const fileDisplayArea = document.getElementById('file-display-area');
+    const fileNameDisplay = document.getElementById('file-name');
+    const submitButton = document.getElementById('submit-button');
+
+    // Drag and drop events
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, () => dropArea.classList.add('highlight'), false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, () => dropArea.classList.remove('highlight'), false);
+    });
+
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles(files);
+    }
+
+    function handleFileSelect() {
+        handleFiles(fileInput.files);
+    }
+
+    function handleFiles(files) {
+        if (files.length > 0) {
+            fileInput.files = files;
+            displayFileInfo(files[0].name);
+        }
+    }
+
+    function displayFileInfo(fileName) {
+        uploadPrompt.style.display = 'none';
+        fileDisplayArea.style.display = 'inline-flex';
+        fileNameDisplay.textContent = fileName;
+        submitButton.style.display = 'inline-block';
+    }
+
+    function clearFile(event) {
+        if (event) event.stopPropagation();
+        fileInput.value = '';
+        uploadPrompt.style.display = 'block';
+        fileDisplayArea.style.display = 'none';
+        fileNameDisplay.textContent = '';
+        submitButton.style.display = 'none';
+    }
+</script>
+{% endblock %}

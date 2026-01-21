@@ -1,0 +1,31 @@
+# ScribeTeX Dependencies
+# Python 3.10+ required
+
+# Web Framework
+Flask>=3.0.0
+Flask-Session>=0.8.0
+
+# PDF Processing
+PyMuPDF>=1.24.0
+
+# Image Processing
+Pillow>=10.0.0
+
+# Document Processing
+python-docx>=1.0.0
+
+# LLM APIs (January 2026)
+# OpenAI - GPT-4.1, GPT-5.x models
+openai>=1.50.0
+
+# Google Gemini - Uses new unified SDK (google-generativeai deprecated Nov 2025)
+google-genai>=1.0.0
+
+# Anthropic Claude - Claude 4.5 models
+anthropic>=0.40.0
+
+# Environment Configuration
+python-dotenv>=1.0.0
+
+# Logging
+python-json-logger>=3.0.0

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found - ScribeTeX{% endblock %}
+
+{% block content %}
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <h2 class="title">Page Not Found</h2>
+        <p class="subtitle">The page you're looking for doesn't exist.</p>
+        <a href="{{ url_for('main.upload_file') }}" class="convert-button">
+            Go to Homepage
+        </a>
+    </div>
+{% endblock %}

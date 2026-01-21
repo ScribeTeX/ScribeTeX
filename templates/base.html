@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ScribeTeX{% endblock %}</title>
+
+    <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <a href="{{ url_for('main.upload_file') }}" class="logo-link">
+            <div class="logo">
+                <i class="fa-solid fa-scroll"></i>
+            </div>
+            <h1 class="main-heading">ScribeTeX</h1>
+        </a>
+    </header>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>ScribeTeX · Licensed under <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Apache 2.0</a>. Open source on
+            <a href="https://github.com/yourusername/scribetex" target="_blank" rel="noopener">GitHub</a>.
+            <p class="credits">
+            Created by 
+            <a href="https://github.com/Manav02012002" target="_blank" rel="noopener">Manav Madan Rawal</a> 
+            &amp; 
+            <a href="https://github.com/shamantdixit" target="_blank" rel="noopener">Shamant Shreedhar Dixit</a>.
+        </p>
+
+        </p>
+    </footer>
+
+    {% block scripts_extra %}{% endblock %}
+</body>
+</html>

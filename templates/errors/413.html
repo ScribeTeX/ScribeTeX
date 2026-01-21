@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}File Too Large - ScribeTeX{% endblock %}
+
+{% block content %}
+    <div class="error-container">
+        <div class="error-code">413</div>
+        <h2 class="title">File Too Large</h2>
+        <p class="subtitle">The uploaded file exceeds the maximum allowed size of {{ max_size_mb }} MB.</p>
+        <a href="{{ url_for('main.upload_file') }}" class="convert-button">
+            Try Again
+        </a>
+    </div>
+{% endblock %}
